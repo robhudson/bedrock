@@ -21,33 +21,34 @@ $image-path: '/media/protocol/img';
     @include visually-hidden;
 }
 
-/* -------------------------------------------------------------------------- */
-// Split container
+//* -------------------------------------------------------------------------- */
+// Firefox promo
 
-.mzp-c-split.mzp-t-dark {
-    background-color: $color-ink-80;
+.home-hero {
+    .mzp-c-split-bg {
+        background-color: $color-ink-80;
+        padding: 0;
+    }
+
+    .mzp-c-split-body {
+        padding: $layout-sm 0;
+
+        @media #{$mq-md} {
+            padding: $layout-md 0;
+        }
+    }
 
     .mzp-c-split-media {
         max-width: 400px;
+        padding-top: $layout-sm;
     }
 
-    .mzp-c-split-container {
-        @media #{$mq-lg} {
-            padding-bottom: 0;
-            box-sizing: content-box;
-            padding-top: $spacing-2xl;
-        }
-    }
-}
-
-.mzp-c-split-body {
-    padding: $spacing-lg;
-
-    .mzp-u-title-lg {
+    h2 {
         @include font-firefox;
     }
 }
-/* -------------------------------------------------------------------------- */
+
+//* -------------------------------------------------------------------------- */
 // Custom card styles for lazy-loaded images.
 
 .mzp-c-card {
@@ -62,7 +63,7 @@ $image-path: '/media/protocol/img';
 }
 
 
-/* -------------------------------------------------------------------------- */
+//* -------------------------------------------------------------------------- */
 // Pocket highlights section.
 
 .pocket {
