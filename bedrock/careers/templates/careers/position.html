@@ -14,7 +14,7 @@
 {% block careers_content %}
 <section class="job-post" id="job-post">
   <div class="job-row">
-    <div>
+    <div class="job-info">
       <div class="job-title">
         <strong>{{ position.title }}</strong>
       </div>
@@ -35,37 +35,44 @@
         <dd class="job-post-location">{{ postings | map(attribute='job_locations') | join(', ') }}</dd>
       </dl>
     </div>
+    <div class="job-apply">
     {% if postings|length == 1 %}
       <div class="appy-btn">
         <a href="{{ position.apply_url }}" class="mzp-c-button">Apply Now</a>
       </div>
     {% else %}
-      {% for job in postings %}
-        {{ job.job_locations }}:
-        <div class="appy-btn">
-          <a href="{{ job.apply_url }}" class="mzp-c-button">Apply Now</a>
-        </div>
-      {% endfor %}
+      <div class="mzp-c-menu-list">
+        <h3 class="mzp-c-menu-list-title">Apply Now</h3>
+        <ul class="mzp-c-menu-list-list">
+        {% for job in postings %}
+          <li class="mzp-c-menu-list-item"><a href="{{ job.apply_url }}">{{ job.job_locations }}</a></li>
+        {% endfor %}
+        </ul>
+      </div>
     {% endif %}
+    </div>
   </div>
   <div>
     {{ position.description|safe }}
   </div>
+  <div class="job-apply">
   {% if postings|length == 1 %}
-    <div class="c-apply-button-container">
+    <div class="appy-btn">
       <a href="{{ position.apply_url }}" class="mzp-c-button">Apply Now</a>
     </div>
   {% else %}
-    {% for job in postings %}
-      {{ job.job_locations }}:
-      <div class="c-apply-button-container">
-        <a href="{{ job.apply_url }}" class="mzp-c-button">Apply for this job</a>
-      </div>
-    {% endfor %}
+    <div class="mzp-c-menu-list">
+      <h3 class="mzp-c-menu-list-title">Apply Now</h3>
+      <ul class="mzp-c-menu-list-list">
+      {% for job in postings %}
+        <li class="mzp-c-menu-list-item"><a href="{{ job.apply_url }}">{{ job.job_locations }}</a></li>
+      {% endfor %}
+      </ul>
+    </div>
   {% endif %}
-  <small>
-    <a rel="external" href="https://docs.google.com/document/d/e/2PACX-1vTEeCImDA-kqr0wm3JwfOv_2MS5FZ8oyL2pEWfVsZbeO87E41r2wePoOhppQ4qX6w/pub">Applicant Privacy Notice</a>
-  </small>
+  </div>
+
+  <p><a rel="external" href="https://docs.google.com/document/d/e/2PACX-1vTEeCImDA-kqr0wm3JwfOv_2MS5FZ8oyL2pEWfVsZbeO87E41r2wePoOhppQ4qX6w/pub">Applicant Privacy Notice</a></p>
 </section>
 
 <section id="why" class="mzp-c-call-out">
@@ -141,4 +148,8 @@
     </div>
   </div>
 </section>
+{% endblock %}
+
+{% block js %}
+  {{ js_bundle('careers-position') }}
 {% endblock %}
