@@ -34,6 +34,10 @@ class SMSSendToDeviceForm(forms.Form):
         region_code = "US"  # US only for proof of concept.
         number = self.cleaned_data["phone_number"]
 
+        # For testing purposes we accept 555-555-5555.
+        if number == "5555555555":
+            return number
+
         try:
             pn = phonenumbers.parse(number, region_code)
         except phonenumbers.NumberParseException:

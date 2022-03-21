@@ -195,17 +195,23 @@ def sign_attribution_codes(codes):
 @csrf_exempt
 def sms_send_to_device_ajax(request):
     client = get_twilio_client()
-    if client is None:
-        return JsonResponse({"success": False, "errors": ["SMS not configured"]})
-
     form = SMSSendToDeviceForm(request.POST)
+
     if not form.is_valid():
         return JsonResponse({"success": False, "errors": form.errors["phone_number"]})
 
     to_number = form.cleaned_data["phone_number"]
-    # platform = form.cleaned_data["platform"]
 
-    # TODO: Update `sms_body` with actual content. May differ based on platform.
+    # For testing purposes, return success.
+    if to_number == "5555555555":
+        return JsonResponse({"success": True})
+
+    if client is None:
+        return JsonResponse({"success": False, "errors": ["SMS not configured"]})
+
+    # TODO: Update `sms_body` with actual content.
+    # Content may differ based on `form.cleaned_data["platform"]`
+
     sms_body = "test"  # Limited to 1600 characters.
 
     try:
@@ -716,7 +722,6 @@ class NewView(L10nTemplateView):
             percent = redirect_percents.get(locale, 0)
             if percent:
                 percent = percent / 100
-                print(percent)
                 if random() <= percent:
                     exp_url = reverse("exp.firefox.new")
                     query_string = self.request.META.get("QUERY_STRING", "")
