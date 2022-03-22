@@ -25,7 +25,7 @@
 
 {% block experiments %}
   {% if switch('firefox-ios-sms-experiment', ['en-US']) and country_code == "US" %}
-    {{ js_bundle('firefox_ios_sms_experiment') }}
+    {{ js_bundle('firefox-ios-sms-experiment') }}
   {% endif %}
 {% endblock %}
 
@@ -184,7 +184,11 @@
 {% endblock %}
 
 {% block js %}
+{% if variation == '2' %}
+  {{ js_bundle('firefox-browsers-ios-sms') }}
+{% else %}
   {{ js_bundle('firefox-browsers-mobile') }}
+{% endif %}
 
   {% if show_firefox_app_store_banner %}
     {{ js_bundle('firefox-app-store-banner') }}

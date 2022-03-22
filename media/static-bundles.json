@@ -1343,7 +1343,14 @@
         "js/libs/mozilla-traffic-cop.js",
         "js/firefox/browsers/firefox-ios-sms-experiment.js"
       ],
-      "name": "firefox_ios_sms_experiment"
+      "name": "firefox-ios-sms-experiment"
+    },
+    {
+      "files": [
+        "js/base/send-to-device-sms.js",
+        "js/firefox/browsers/mobile-sms.js"
+      ],
+      "name": "firefox-browsers-ios-sms"
     },
     {
       "files": [
