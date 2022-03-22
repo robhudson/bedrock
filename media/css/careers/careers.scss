@@ -2,8 +2,7 @@
 // License, v. 2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
-@import '~@mozilla-protocol/core/protocol/css/includes/lib';
-@import '~@mozilla-protocol/core/protocol/css/components/menu-list';
+@import '../protocol/components/custom-menu-list';
 
 /* -------------------------------------------------------------------------- */
 
@@ -198,9 +197,12 @@
 /* -------------------------------------------------------------------------- */
 /* Jobs */
 .job-row {
-    display: flex;
-    justify-content: space-between;
     margin-top: 15px;
+
+    @media #{$mq-md} {
+        display: flex;
+        justify-content: space-between;
+    }
 }
 
 .job-title {
@@ -296,7 +298,8 @@
 }
 
 .job-apply {
-    min-width: 150px;
+    min-width: 200px;
+    max-width: 250px;
     margin-bottom: $spacing-lg;
 
     .mzp-c-menu-list-title {
