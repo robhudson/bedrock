@@ -131,6 +131,16 @@ var Spinner = require('../libs/spin.min.js');
     };
 
     /**
+     * Validate 10-digit number
+     * @param {number}
+     */
+     SendToDevice.prototype.checkNumberValidity = function (number) {
+        var digits = number.replace(/\D/g, ""); // Strip anything not a number
+        var digitsTen = /^\d{10}$/; // Check that it's ten digits
+        return digitsTen.test(digits);
+    };
+
+    /**
      * Helper function to serialize form data for XHR request.
      */
     SendToDevice.prototype.serialize = function () {
@@ -157,6 +167,12 @@ var Spinner = require('../libs/spin.min.js');
         var formData = this.serialize();
 
         this.disableForm();
+
+        // perform some basic phone number validation before submitting the form.
+        if (!this.checkNumberValidity(this.input.value)) {
+            this.onFormError(['number']);
+            return;
+        }
 
         var xhr = new XMLHttpRequest();
 
@@ -226,8 +242,8 @@ var Spinner = require('../libs/spin.min.js');
 
         if (errors.indexOf('platform', errors) !== -1) {
             errorClass = '.system';
-        // } else if (errors.indexOf('phone_number', errors) !== -1) {
-        //     errorClass = '.sms';
+        } else if (errors.indexOf('number', errors) !== -1) {
+            errorClass = '.number';
         } else {
             errorClass = '.sms';
         }

@@ -14,6 +14,7 @@
       <h2 class="mzp-u-title-xs thank-you hidden">{{ ftl('send-to-device-your-download-link') }}</h2>
       <form class="send-to-device-form" action="{{ url('firefox.sms-send-to-device-post') }}" method="post">
         <ul class="mzp-c-form-errors hidden">
+          <li class="number">Enter a 10-digit phone number</li>
           <li class="sms">Sorry, we can’t send SMS messages to this phone number.</li>
           <li class="system">{{ ftl('send-to-device-an-error-occured') }}</li>
         </ul>
@@ -28,7 +29,7 @@
             <label class="mzp-c-field-label" for="send-to-device-input">
               Enter your 10-digit phone number
             </label>
-            <input id="send-to-device-input" class="mzp-c-field-control send-to-device-input" name="phone_number" type="text" required>
+            <input id="send-to-device-input" class="mzp-c-field-control send-to-device-input" name="phone_number" type="tel" required>
           </div>
           <div class="mzp-c-button-container mzp-l-stretch">
             <button type="submit" class="button mzp-c-button mzp-t-product">{{ ftl('send-to-device-send') }}</button>
