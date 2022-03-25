@@ -34,7 +34,7 @@ class SMSSendToDeviceForm(forms.Form):
         region_code = "US"  # US only for proof of concept.
         number = self.cleaned_data["phone_number"]
 
-        # For testing purposes we accept 555-555-5555.
+        # For testing purposes we accept 5555555555 (no formatting).
         if number == "5555555555":
             return number
 

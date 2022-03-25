@@ -682,15 +682,18 @@ class TestSMSSendToDevice(TestCase):
 
     @patch("bedrock.firefox.views.TWILIO_CLIENT")
     def test_valid_number(self, mock_client):
-        resp = self._do_post({"phone_number": "415 555 1212"})
-        assert resp.status_code == 200
-        data = resp.json()
-        assert data["success"] is True
-        mock_client.messages.create.assert_called_once_with(
-            to="+14155551212",
-            body="test",
-            messaging_service_sid=settings.TWILIO_MESSAGING_SERVICE_SID,
-        )
+        valid_numbers = ["4155551212", "(415) 555-1212", "415.555.1212", "415-555-1212"]
+        for number in valid_numbers:
+            resp = self._do_post({"phone_number": number})
+            assert resp.status_code == 200
+            data = resp.json()
+            assert data["success"] is True
+            mock_client.messages.create.assert_called_once_with(
+                to="+14155551212",
+                body="test",
+                messaging_service_sid=settings.TWILIO_MESSAGING_SERVICE_SID,
+            )
+            mock_client.reset_mock()
 
     @patch("bedrock.firefox.views.TWILIO_CLIENT")
     def test_twilio_exception(self, mock_client):
