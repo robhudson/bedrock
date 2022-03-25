@@ -115,7 +115,7 @@ class Command(BaseCommand):
 
             job_ids.append(job["id"])
 
-            position, created = Position.objects.get_or_create(job_id=job["id"], source="gh")
+            position, created = Position.objects.get_or_create(job_id=job["id"], internal_job_id=job["internal_job_id"], source="gh")
 
             departments = job.get("departments", "")
             if departments:

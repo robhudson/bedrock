@@ -22,8 +22,8 @@ class Position(models.Model):
     position_type = models.CharField(max_length=100)
     updated_at = models.DateTimeField(default=datetime.utcnow)
     # Store the Greenhouse internal ID for grouping the same jobs with multiple
-    # listings per location. The `null=True` is for backwards compatibility only.
-    internal_job_id = models.PositiveIntegerField(null=True)
+    # listings per location.
+    internal_job_id = models.PositiveIntegerField()
 
     class Meta:
         ordering = (

@@ -65,8 +65,8 @@ class SyncGreenhouseTests(TestCase):
         self.assertEqual(position.description, "<h4>foo</h4> bar")
 
     def test_job_removal(self):
-        PositionFactory(job_id="xxx")
-        PositionFactory(job_id="yyy")
+        PositionFactory(job_id="xxx", internal_job_id=99)
+        PositionFactory(job_id="yyy", internal_job_id=99)
         jobs_response = {
             "jobs": [
                 {
