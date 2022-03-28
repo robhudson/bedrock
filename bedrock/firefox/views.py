@@ -209,10 +209,10 @@ def sms_send_to_device_ajax(request):
     if client is None:
         return JsonResponse({"success": False, "errors": ["SMS not configured"]})
 
-    # TODO: Update `sms_body` with actual content.
-    # Content may differ based on `form.cleaned_data["platform"]`
+    # NOTE: If needed, content may differ based on `form.cleaned_data["platform"]`
 
-    sms_body = "test"  # Limited to 1600 characters.
+    # `sms_body` is limited to 1600 characters.
+    sms_body = "Download the Firefox mobile browser for automatic protection on all your devices. https://app.adjust.com/kwd7bhf"
 
     try:
         client.messages.create(
