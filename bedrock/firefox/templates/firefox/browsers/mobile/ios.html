@@ -29,7 +29,9 @@
   {% endif %}
 {% endblock %}
 
-{% if variation == '2' %}
+{% if variation == '1' %}
+{% set s2d_include = 'firefox/browsers/mobile/includes/s2d-ios-email.html' %}
+{% elif variation == '2' %}
   {% set s2d_include = 'firefox/browsers/mobile/includes/s2d-ios-sms.html' %}
 {% elif variation == '3' %}
   {% set s2d_include = 'firefox/browsers/mobile/includes/s2d-ios-qr.html' %}

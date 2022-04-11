@@ -997,6 +997,11 @@ SEND_TO_DEVICE_MESSAGE_SETS = {
             "all": "download-firefox-mobile-reco-exp",
         }
     },
+    "fx-mobile-ios-twilio-experiment": {
+        "email": {
+            "all": "download-firefox-ios-twilio-experiment",
+        }
+    },
     "fx-whatsnew": {
         "email": {
             "all": "download-firefox-mobile-whatsnew",
