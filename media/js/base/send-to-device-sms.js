@@ -134,8 +134,8 @@ var Spinner = require('../libs/spin.min.js');
      * Validate 10-digit number
      * @param {number}
      */
-     SendToDevice.prototype.checkNumberValidity = function (number) {
-        var digits = number.replace(/\D/g, ""); // Strip anything not a number
+    SendToDevice.prototype.checkNumberValidity = function (number) {
+        var digits = number.replace(/\D/g, ''); // Strip anything not a number
         var digitsTen = /^\d{10}$/; // Check that it's ten digits
         return digitsTen.test(digits);
     };
