@@ -52,7 +52,9 @@ def render_to_string(template_name, context=None, request=None, using=None, ftl_
 def redirect_to_best_locale(request, translations):
     # Note that translations is list of locale strings (eg ["en-GB", "ru", "fr"])
     locale = get_best_translation(translations, get_accept_languages(request))
-    return redirect_to_locale(request, locale)
+    if locale:
+        return redirect_to_locale(request, locale)
+    return locale_selection(request, translations)
 
 
 def redirect_to_locale(request, locale, permanent=False):
@@ -61,6 +63,15 @@ def redirect_to_locale(request, locale, permanent=False):
     # Add the Vary header to avoid wrong redirects due to a cache
     response["Vary"] = "Accept-Language"
     return response
+
+
+def locale_selection(request, translations):
+    context = {
+        "fluent_l10n": fluent_l10n(["en"], settings.FLUENT_DEFAULT_FILES),
+        "languages": product_details.languages,
+        "available_locales": translations,
+    }
+    return django_render(request, "404-locale.html", context, status=404)
 
 
 def render(request, template, context=None, ftl_files=None, activation_files=None, **kwargs):
@@ -194,14 +205,8 @@ def get_best_translation(translations, accept_languages):
         if pre in valid_lang_map:
             return valid_lang_map[pre]
 
-    # If all the attempts failed, just use en-US, the default locale of
-    # the site, if it is an available translation.
-    if settings.LANGUAGE_CODE in translations:
-        return settings.LANGUAGE_CODE
-
-    # In the rare case the default language isn't in the list, return the
-    # first translation in the valid_lang_map.
-    return list(valid_lang_map.values())[0]
+    # We couldn't find a best locale to return so we return `None`.
+    return None
 
 
 def get_translations_native_names(locales):

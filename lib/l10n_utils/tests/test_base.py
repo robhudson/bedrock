@@ -184,17 +184,17 @@ class TestL10nTemplateView(TestCase):
         (["en-US"], ["en"], "en-US"),
         (["en-US", "de"], ["en-GB"], "en-US"),
         # Anything with a 'en-US' transtion and unsupported translations, goes to 'en-US' by default.
-        (["en-US"], ["zu"], "en-US"),
-        (["en-US"], ["fr"], "en-US"),
-        (["en-US", "de"], ["fr"], "en-US"),
+        (["en-US"], ["zu"], None),
+        (["en-US"], ["fr"], None),
+        (["en-US", "de"], ["fr"], None),
         # The user's prioritized accept language should be chosen first.
         (["en-US", "de"], ["de", "en-US"], "de"),
         (["en-US", "de", "fr"], ["fr", "de"], "fr"),
         (["en-US", "de", "fr"], ["en-CA", "fr", "de"], "en-US"),
         # A request for only inactive translations should default to 'en-US'. Bug 1752823
-        (["am", "an", "en-US"], ["mk", "gu-IN"], "en-US"),
+        (["am", "an", "en-US"], ["mk", "gu-IN"], None),
         # "am" is not a valid language in the list of PROD_LANGUAGES
-        (["am", "an"], ["mk", "gu-IN"], "an"),
+        (["am", "an"], ["mk", "gu-IN"], None),
     ),
 )
 def test_get_best_translation(translations, accept_languages, expected):

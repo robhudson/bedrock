@@ -1,0 +1,35 @@
+{#
+ This Source Code Form is subject to the terms of the Mozilla Public
+ License, v. 2.0. If a copy of the MPL was not distributed with this
+ file, You can obtain one at https://mozilla.org/MPL/2.0/.
+#}
+
+{% extends "base-protocol-mozilla.html" %}
+
+{% block page_title %}404 - Choose your language or locale to browse Mozilla.org{% endblock %}
+
+{% block page_desc %}
+  Select your country or region to indicate your preferred language.
+{% endblock %}
+
+{% block canonical_urls %}
+  {# Should 404s have canonical URLs? #}
+  {# <link rel="canonical" href=""> #}
+{% endblock %}
+
+{% block page_css %}
+  {{ css_bundle('locales') }}
+{% endblock %}
+
+{% block content %}
+<main role="main" class="mzp-l-content">
+  <header class="c-simple-header">
+    <h1 class="c-simple-header-title">Choose your language</h1>
+  </header>
+  <ul>
+    {% for locale in available_locales %}
+      <li lang="{{ locale }}"><a href="/{{ locale }}{{ request.path_info }}" title="Browse {{ request.path_info }} in the {{ languages[locale]['English'] }} language">{{ languages[locale]["native"] }}</a></li>
+    {% endfor %}
+  </ul>
+</main>
+{% endblock %}
