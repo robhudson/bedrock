@@ -96,7 +96,7 @@ def render(request, template, context=None, ftl_files=None, activation_files=Non
 
     # is this a non-locale page?
     name_prefix = request.path_info.split("/", 2)[1]
-    non_locale_url = name_prefix in settings.SUPPORTED_NONLOCALES
+    non_locale_url = name_prefix in settings.SUPPORTED_NONLOCALES or request.path in settings.SUPPORTED_LOCALE_IGNORE
 
     # Make sure we have a single template
     if isinstance(template, list):
