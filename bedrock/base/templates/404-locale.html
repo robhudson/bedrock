@@ -26,10 +26,12 @@
   <header class="c-simple-header">
     <h1 class="c-simple-header-title">Choose your language</h1>
   </header>
-  <ul>
-    {% for locale in available_locales %}
-      <li lang="{{ locale }}"><a href="/{{ locale }}{{ request.path_info }}" title="Browse {{ request.path_info }} in the {{ languages[locale]['English'] }} language">{{ languages[locale]["native"] }}</a></li>
-    {% endfor %}
-  </ul>
+  <section class="c-block-list">
+    <ul>
+      {% for locale in available_locales %}
+        <li lang="{{ locale }}"><a href="/{{ locale }}{{ request.path_info }}" title="Browse {{ request.path_info }} in the {{ languages[locale]['English'] }} language">{{ languages[locale]["native"] }}</a></li>
+      {% endfor %}
+    </ul>
+  </section>
 </main>
 {% endblock %}
