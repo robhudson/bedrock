@@ -28,7 +28,7 @@
   </header>
   <section class="c-block-list">
     <ul>
-      {% for locale in available_locales %}
+      {% for locale in available_locales if locale in languages %}
         <li lang="{{ locale }}"><a href="/{{ locale }}{{ request.path_info }}" title="Browse {{ request.path_info }} in the {{ languages[locale]['English'] }} language">{{ languages[locale]["native"] }}</a></li>
       {% endfor %}
     </ul>
