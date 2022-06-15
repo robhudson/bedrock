@@ -14,8 +14,11 @@ from bedrock.wordpress.models import BlogPost
 
 
 class PositionTests(TestCase):
+    def setUp(self):
+        self.client = self.client_class(HTTP_ACCEPT_LANGUAGE="en")
+
     def test_context(self):
-        response = self.client.get(reverse("careers.listings"), follow=True, HTTP_ACCEPT_LANGUAGE="en")
+        response = self.client.get(reverse("careers.listings"), follow=True)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(type(response.context["form"]), type(PositionFilterForm()))
 
@@ -30,18 +33,18 @@ class PositionTests(TestCase):
         PositionFactory(job_id=job_id_2)
 
         url = reverse("careers.position", kwargs={"job_id": job_id_1, "source": "gh"})
-        response = self.client.get(url, follow=True, HTTP_ACCEPT_LANGUAGE="en")
+        response = self.client.get(url, follow=True)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.context["position"].job_id, job_id_1)
 
         url = reverse("careers.position", kwargs={"job_id": job_id_2, "source": "gh"})
-        response = self.client.get(url, follow=True, HTTP_ACCEPT_LANGUAGE="en")
+        response = self.client.get(url, follow=True)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.context["position"].job_id, job_id_2)
 
     def test_position_view_404_uses_custom_template(self):
         url = reverse("careers.position", kwargs={"job_id": "aabbccdd", "source": "gh"})
-        response = self.client.get(url, follow=True, HTTP_ACCEPT_LANGUAGE="en")
+        response = self.client.get(url, follow=True)
         self.assertEqual(response.status_code, 404)
         self.assertTemplateUsed(response, "careers/404.html")
 
@@ -52,6 +55,9 @@ class BlogTests(TestCase):
         "excerpt": "",
         "link": "",
     }
+
+    def setUp(self):
+        self.client = self.client_class(HTTP_ACCEPT_LANGUAGE="en")
 
     def _populate_blog_posts(self):
         today = timezone.now()
@@ -66,7 +72,7 @@ class BlogTests(TestCase):
     def test_blog_posts_none_featured(self):
         recent_today, recent_older1, recent_older2 = self._populate_blog_posts()
 
-        response = self.client.get(reverse("careers.home"), follow=True, HTTP_ACCEPT_LANGUAGE="en")
+        response = self.client.get(reverse("careers.home"), follow=True)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.context["featured_post"], None)
         # Coerse to a list, not a `QuerySet`.
@@ -80,7 +86,7 @@ class BlogTests(TestCase):
             wp_id=99, date=timezone.now(), modified=timezone.now(), title="Post Featured", tags=["Story"], **self.blog_data
         )
 
-        response = self.client.get(reverse("careers.home"), follow=True, HTTP_ACCEPT_LANGUAGE="en")
+        response = self.client.get(reverse("careers.home"), follow=True)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.context["featured_post"], featured)
         # Coerse to a list, not a `QuerySet`.
