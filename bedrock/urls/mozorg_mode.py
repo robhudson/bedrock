@@ -14,6 +14,7 @@ from bedrock.base import views as base_views
 # which breaks the base template page. So we replace them with views that do!
 handler500 = "bedrock.base.views.server_error_view"
 handler404 = "bedrock.base.views.page_not_found_view"
+handler404locale = "bedrock.base.views.page_locale_not_found_view"
 
 
 urlpatterns = (
@@ -39,6 +40,7 @@ urlpatterns = (
 if settings.DEBUG:
 
     urlpatterns += (
+        path("404-locale/", import_string(handler404locale)),
         path("404/", import_string(handler404)),
         path("500/", import_string(handler500)),
     )

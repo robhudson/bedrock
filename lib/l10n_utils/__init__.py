@@ -71,7 +71,7 @@ def locale_selection(request, translations):
         "languages": product_details.languages,
         "available_locales": translations,
     }
-    return django_render(request, "404-locale.html", context, status=404)
+    return render(request, "404-locale.html", context, ftl_files=["404-locale"], status=404)
 
 
 def render(request, template, context=None, ftl_files=None, activation_files=None, **kwargs):
