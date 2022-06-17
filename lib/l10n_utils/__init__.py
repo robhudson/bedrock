@@ -65,13 +65,22 @@ def redirect_to_locale(request, locale, permanent=False):
     return response
 
 
-def locale_selection(request, translations):
+def locale_selection(request, available_locales=None):
+    # If `request.locale` is set, use that for fluent translations on the 404-locale.html page.
+    locales = [request.locale, "en"] if request.locale else ["en"]
+    # If `settings.DEV` is true, make `available_locales` all available locales for l10n testing.
+    # Or if empty, set it to at least en-US.
+    if not available_locales:
+        available_locales = ["en-US"]
+    if settings.DEV:
+        available_locales = settings.DEV_LANGUAGES
+
     context = {
-        "fluent_l10n": fluent_l10n(["en"], settings.FLUENT_DEFAULT_FILES),
+        "fluent_l10n": fluent_l10n(locales, ["404-locale"] + settings.FLUENT_DEFAULT_FILES),
         "languages": product_details.languages,
-        "available_locales": translations,
+        "available_locales": sorted(available_locales),
     }
-    return render(request, "404-locale.html", context, ftl_files=["404-locale"], status=404)
+    return django_render(request, "404-locale.html", context, status=404)
 
 
 def render(request, template, context=None, ftl_files=None, activation_files=None, **kwargs):
