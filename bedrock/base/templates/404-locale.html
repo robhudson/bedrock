@@ -24,8 +24,9 @@
 {% block content %}
 <main role="main" class="mzp-l-content">
   <header class="c-simple-header">
-    <h1 class="c-simple-header-title">Translation Not Found</h1>
-    <p>We're sorry, that web page has not yet been translated by our volunteers. It is available in the following languages:</p>
+    <h1 class="c-simple-header-title">Page is not yet translated</h1>
+    <p>Join our <a href="https://community.mozilla.org/activities/localize-mozilla/">community team</a> and help us <a href="https://wiki.mozilla.org/L10n:Contribute">translate this page.</a></p>
+    <p>It is available in the following languages:</p>
   </header>
   <section class="c-block-list">
     <ul>
@@ -33,10 +34,6 @@
         <li lang="{{ locale }}"><a href="/{{ locale }}{{ request.path_info }}" title="Browse {{ request.path_info }} in the {{ languages[locale]['English'] }} language">{{ languages[locale]["native"] }}</a></li>
       {% endfor %}
     </ul>
-  </section>
-  <section class="c-section-contribute">
-    <h2>Want to contribute?</h2>
-    <p>Learn more about Mozilla’s volunteer-driven <a href="https://wiki.mozilla.org/L10n:Contribute">localization community</a>.</p>
   </section>
 </main>
 {% endblock %}
